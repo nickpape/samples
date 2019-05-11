@@ -1,0 +1,20 @@
+{
+  "name": "katie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build.js",
+  "scripts": {
+    "build": "node ./build.js",
+    "test": "node ./lib/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "readline-sync": "~1.4.9"
+  },
+  "devDependencies": {
+    "rimraf": "~2.6.3",
+    "@microsoft/rush": "^5.7.3",
+    "typescript": "^3.4.5"
+  }
+}
