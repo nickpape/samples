@@ -475,3 +475,28 @@ write(`BARTENDER: Yes, the bill is $${amountOwed(numberOfDrinks)}`);
 //
 //     CUSTOMER: Okay, can I get the bill?
 //     BARTENDER: Yes, the bill is $20
+
+
+
+// Sample 29, a bank balance program
+var balance: number = getNumber('How much would you like to deposit?');
+
+function canWithdraw(amount: number): boolean {
+    if (balance - amount > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+while (true) {
+    write(`BALANCE: ${balance}`);
+    var withdrawal: number = getNumber('How much would you like to withdraw?');
+    if ( canWithdraw(withdrawal) ) {
+        balance = balance - withdrawal;
+        write('APPROVED!');
+    } else {
+        write('DECLINED!');
+    }
+    write();
+}
