@@ -1,4 +1,8 @@
-import { write } from './library';
+import {
+    write,
+    getNumber,
+    getString
+} from './library';
 
 // Sample 0 - how to write something to the output so you can see it
 write();                            // writes an empty line
@@ -134,6 +138,7 @@ write( name );                    // "Gage"
 var name: string = 'Nick';
 
 write( 'Gage' == 'Gage' );       // "true"
+write( name != 'Nick' );         // "false"
 write( name == 'Nick' );         // "true"
 write( name == 'Katie' );        // "false"
 
@@ -309,8 +314,8 @@ write( howRich(99999999999) );    // "RICH!"
 
 // Sample 22 - "else if"
 function howDrunk(bac: number): string {
-    if (bac >= .20) {
-        return 'DANGER';
+    if (bac >= .30) {
+        return 'DANGEROUSLY DRUNK';
     } else if (bac >= .08) {
         return 'DRUNK';
     } else if (bac >= .02) {
@@ -323,7 +328,7 @@ function howDrunk(bac: number): string {
 write( howDrunk(0.00) );         // "SOBER"
 write( howDrunk(0.04) );         // "TIPSY"
 write( howDrunk(0.12) );         // "DRUNK"
-write( howDrunk(0.40) );         // "DANGER"
+write( howDrunk(0.40) );         // "DANGEROUSLY DRUNK"
 
 
 
@@ -341,5 +346,133 @@ write( howDrunk(bac) );         // "DRUNK"
 
 
 
+// Sample 24 - getting input from the user
+var age: number = getNumber('How old are you?');
+
+if ( isOld(age) ) {
+    write('You are old...');
+} else {
+    write('You are YOUNG!');
+}
 
 
+
+// Sample 25 - use a function to see how drunk someone is
+var bac: number = getNumber('What is your BAC?');
+var drunkLevel: string = howDrunk(bac);
+write( `You are ${drunkLevel}` );
+
+
+
+// Sample 26 - introducing a loop!
+var age: number = 1;
+while (age < 5) {
+    age = age + 1;
+    write(age);
+}
+
+// OUTPUT:
+//   1
+//   2
+//   3
+//   4
+//   5
+
+
+
+// Sample 27 - a drinking loop
+var bac: number = 0.00;
+write(`My BAC is ${bac} and I am ${howDrunk(bac)}`);
+write();
+
+while (bac < .08) {
+    write('I am going to drink!');
+    bac = drinkBeer(bac);
+
+    write(`After that beer, my BAC is ${bac} and I am ${howDrunk(bac)}`);
+    write();
+}
+write('Done drinking for today!');
+
+// OUTPUT:
+//    My BAC is 0 and I am SOBER
+//    I am going to drink!
+//    After that beer, my BAC is 0.02 and I am TIPSY
+//
+//    I am going to drink!
+//    After that beer, my BAC is 0.04 and I am TIPSY
+//
+//    I am going to drink!
+//    After that beer, my BAC is 0.06 and I am TIPSY
+//
+//    I am going to drink!
+//    After that beer, my BAC is 0.08 and I am DRUNK
+//
+//    Done drinking for today!
+
+
+
+// Sample 28 - a bartending loop
+
+var priceOfBeer: number = 5;
+function amountOwed(numberOfBeers: number): number {
+    return priceOfBeer * numberOfBeers;
+}
+
+var bac: number = 0.00;
+var numberOfDrinks: number = 0;
+
+write(`CUSTOMER: I am ${howDrunk(bac)}!`);
+
+function canServe(bac): boolean {
+    write('CUSTOMER: Can I have another drink?');
+
+    if (isDrunk(bac)) {
+        write('BARTENDER: I cannot serve you any more alcohol...');
+        return false;
+    } else {
+        write('BARTENDER: Yes');
+        return true;
+    }
+}
+
+while (canServe(bac)) {
+    bac = drinkBeer(bac);
+    numberOfDrinks = numberOfDrinks + 1;
+
+    write(`BARTENDER: You have now had ${numberOfDrinks} drinks`);
+    write();
+    write(`CUSTOMER: After that beer, I am ${howDrunk(bac)}`);
+}
+
+write();
+write('CUSTOMER: Okay, can I get the bill?');
+write(`BARTENDER: Yes, the bill is $${amountOwed(numberOfDrinks)}`);
+
+// Output:
+//     CUSTOMER: I am SOBER!
+//     CUSTOMER: Can I have another drink?
+//     BARTENDER: Yes
+//     BARTENDER: You have now had 1 drinks
+//
+//     CUSTOMER: After that beer, I am TIPSY
+//     CUSTOMER: Can I have another drink?
+//     BARTENDER: Yes
+//     BARTENDER: You have now had 2 drinks
+//
+//     CUSTOMER: After that beer, I am TIPSY
+//     CUSTOMER: Can I have another drink?
+//     BARTENDER: Yes
+//     BARTENDER: You have now had 3 drinks
+//
+//     CUSTOMER: After that beer, I am TIPSY
+//     CUSTOMER: Can I have another drink?
+//     BARTENDER: Yes
+//     BARTENDER: You have now had 4 drinks
+//
+//     CUSTOMER: After that beer, I am DRUNK
+//     CUSTOMER: Can I have another drink?
+//     BARTENDER: I cannot serve you any more alcohol...
+//
+//     CUSTOMER: Okay, can I get the bill?
+//     BARTENDER: Yes, the bill is $20
