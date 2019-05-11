@@ -500,3 +500,15 @@ while (true) {
     }
     write();
 }
+
+// Sample 30 - An Object
+class Person {
+    public name: string;
+    public age: number;
+}
+
+var katie: Person = new Person();
+katie.name = 'Katie';
+katie.age = 26;
+
+
