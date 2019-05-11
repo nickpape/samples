@@ -1,7 +1,6 @@
 import {
     write,
-    getNumber,
-    getString
+    getNumber
 } from './library';
 
 // Sample 0 - how to write something to the output so you can see it
